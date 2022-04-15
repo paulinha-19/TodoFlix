@@ -1,0 +1,56 @@
+/* .searchButton {
+    margin-left: 10px;
+    color: #0dcaf0;
+    border-color: #0dcaf0;
+    background-color: #212529;
+}
+
+.searchButton :hover {
+    background-color: #0dcaf0;
+}
+ */
+
+a.todoflix.navbar-brand {
+    color: #E71B27;
+}
+
+a.todoflix.navbar-brand:hover {
+    color: #E71B27;
+}
+
+.link,
+a#navbarScrollingDropdown.dropdown-toggle.nav-link {
+    color: #fff !important;
+    font-weight: 500;
+}
+
+.link:hover,
+a#navbarScrollingDropdown.dropdown-toggle.nav-link:hover {
+    color: #ffffffe0 !important;
+}
+
+.navbar {
+    margin-bottom: 15px;
+}
+
+button.add-filme-button.btn.btn-primary {
+    background-color: #E71B27;
+    color: #fff;
+    border: #E71B27;
+    margin-right: 1rem;
+    width: 9rem;
+}
+
+button.add-filme-button.btn.btn-primary:hover{
+    border: 1px solid #dccecf;
+}
+
+input.search-input.form-control{
+    background-color: #2C2C2C;
+    border: #2C2C2C;
+}
+
+input.search-input.form-control::placeholder{
+    color: #fff;
+}
+
