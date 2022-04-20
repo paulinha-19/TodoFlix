@@ -44,7 +44,7 @@ const NavbarComp = () => {
                             </NavDropdown>
                         </Nav>
                         <Button className='d-flex justify-content-center add-filme-button'>
-                            Adiconar Filme
+                            Adicionar Filme
                         </Button>
                         <Form className="d-flex" onSubmit={submitHandler}>
                             <FormControl

@@ -1,0 +1,52 @@
+.container-card {
+    display: flex;
+    justify-content: flex-start;
+    flex-wrap: wrap;
+}
+
+.cards {
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+
+}
+
+.cards img {
+    max-width: 100%;
+    height: auto;
+    vertical-align: middle;
+    margin-top: 5rem;
+}
+
+.card-content {
+    text-align: start
+}
+
+.box-title-vote {
+    display: flex;
+    justify-content: space-between;
+}
+
+.card-title {
+    font-size: 1rem;
+    font-weight: 700;
+}
+
+.card-vote-average {
+    font-weight: 500;
+}
+
+.box-vote-like{
+    display: flex;
+    gap: 0 1rem;
+}
+
+.icon-like-destaques img {
+    margin: 0;
+    width: 20px;
+    height: 20px;
+}
+
+.card-overview {
+    font-size: 0.80rem;
+}

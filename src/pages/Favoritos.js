@@ -1,8 +1,12 @@
-import React from 'react'
+import React from 'react';
+import Destaques from '../components/Destaques/Destaques';
 
 const Favoritos = () => {
   return (
-    <div>Favoritos</div>
+    <div>
+      Favoritos
+      <Destaques></Destaques>
+    </div>
   )
 }
 

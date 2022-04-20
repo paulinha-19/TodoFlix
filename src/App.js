@@ -6,6 +6,8 @@ import Favoritos from './pages/Favoritos';
 import JaVistos from './pages/JaVistos';
 import Adicionados from './pages/Adicionados';
 import Nav from './components/Nav/Nav';
+import Destaques from './components/Destaques/Destaques';
+import { dataAllMovies } from './dataAllMovies';
 import {
   BrowserRouter,
   Routes,
@@ -16,15 +18,18 @@ function App() {
     <div className="App">
       <BrowserRouter>
         <Nav />
-        <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="todos" element={<Todos />} />
-          <Route path="favoritos" element={<Favoritos />} />
-          <Route path="javistos" element={<JaVistos />} />
-          <Route path="adicionados" element={<Adicionados />} />
-        </Routes>
+        <div className='container'>
+          {console.log("APP.JS",dataAllMovies)}
+          <Routes>
+            <Route path="/" element={<Home />} />
+            <Route path="todos" element={<Todos />} />
+            <Route path="favoritos" element={<Favoritos />} />
+            <Route path="javistos" element={<JaVistos />} />
+            <Route path="adicionados" element={<Adicionados />} />
+          </Routes>
+        </div>
       </BrowserRouter>
-    </div>
+    </div >
   );
 }
 

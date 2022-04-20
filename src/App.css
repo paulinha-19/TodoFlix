@@ -1,4 +1,5 @@
-html{
+.App{
   background-color: black;
   color: #fff;
+  height: 100vh;
 }
