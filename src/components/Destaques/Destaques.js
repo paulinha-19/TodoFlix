@@ -1,5 +1,7 @@
-import React, { useContext } from 'react';
+import React, { useContext, useState } from 'react';
 import { MoviesContext } from '../../context/MoviesContext';
+//modal
+import { Modal } from "react-bootstrap";
 //css
 import '../../styles/Destaques.css';
 //slick
@@ -8,14 +10,20 @@ import "slick-carousel/slick/slick-theme.css";
 import Slider from 'react-slick';
 //icon
 import IconLike from '../../assets/icon/icon-like.png'
+import IconHeart from '../../assets/icon/icon-heart.png';
 
 const Destaques = () => {
   const { destaques } = useContext(MoviesContext);
+  const [showStatus, setShowStatus] = useState(false);
+  const handleShow = () => setShowStatus(true);
+  const handleClose = () => setShowStatus(false);
+  const [isFavorite, setIsFavorite] = useState(false);
   var settings = {
     infinite: false,
     autoplay: true,
     speed: 500,
-    slidesToShow: 4,
+    slidesToShow: 3,
+    infinite: true,
     slidesToScroll: 1,
     initialSlide: 0,
     responsive: [
@@ -51,7 +59,13 @@ const Destaques = () => {
         <div key={data.title} className='container-card'>
           <div className='cards'>
             <img alt={data.title} src={data.poster} />
-            <div className='card-content'>
+            <i style={isFavorite ? { color: "#ff0000" } : { color: "#000" }}
+              className={isFavorite ? 'heartIcon' : 'hidden heartIcon'}
+              >
+                <img src={IconHeart} alt={data.title}/>
+            </i>
+            </div>
+            <div className='box-content'>
               <div className='box-title-vote'>
                 <h4 className='card-title'>
                   {data.title}
@@ -67,7 +81,7 @@ const Destaques = () => {
                 {data.overview}
               </p>
             </div>
-          </div>
+          
         </div>
       )
     });

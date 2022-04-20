@@ -2,23 +2,41 @@
     display: flex;
     justify-content: flex-start;
     flex-wrap: wrap;
+    position: relative;
 }
 
-.cards {
+/* .cards {
     display: flex;
     flex-direction: column;
     overflow: hidden;
-
-}
+} */
 
 .cards img {
     max-width: 100%;
     height: auto;
     vertical-align: middle;
     margin-top: 5rem;
+    cursor: pointer;
 }
 
-.card-content {
+.heartIcon {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    font-size: 1.5rem;
+    z-index: 8;
+    width: 1.5rem;
+    height: 1.5rem;
+    line-height: 1rem;
+    transition: all 0.2s linear;
+    -webkit-transition: all .2s linear;
+}
+.heartIcon:hover{
+    transform: scale(1.1);
+    transition-duration: 0.5s;
+}
+
+.box-content {
     text-align: start
 }
 
@@ -39,6 +57,10 @@
 .box-vote-like{
     display: flex;
     gap: 0 1rem;
+}
+
+.slick-slide{
+    padding-right: 1rem;
 }
 
 .icon-like-destaques img {
