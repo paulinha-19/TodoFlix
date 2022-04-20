@@ -30,7 +30,7 @@ const MoviesContextProvider = props => {
     }
 
     return (
-        <MoviesContext.Provider value={{ destaques, filterMovies, filteredMovies }}>
+        <MoviesContext.Provider value={{ allMovies, destaques, filterMovies, filteredMovies }}>
             {props.children}
         </MoviesContext.Provider>
     );

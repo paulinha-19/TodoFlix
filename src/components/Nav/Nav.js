@@ -15,8 +15,9 @@ const NavbarComp = () => {
     let submitHandler = (e) => {
         e.preventDefault();
         let word = e.target.search.value;
+        console.log("PALAVRA DIGITADA",word);
         e.currentTarget.reset();
-        navigate.push(`/search-results?search=${word}`);
+        navigate(`/search-results?search=${word}`); //  `search?query=${word}`
     };
 
     return (

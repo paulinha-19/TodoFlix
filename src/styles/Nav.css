@@ -48,6 +48,7 @@ button.add-filme-button.btn.btn-primary:hover{
 input.search-input.form-control{
     background-color: #2C2C2C;
     border: #2C2C2C;
+    color: #fff;
 }
 
 input.search-input.form-control::placeholder{
