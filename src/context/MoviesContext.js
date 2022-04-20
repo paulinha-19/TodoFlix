@@ -9,6 +9,7 @@ const MoviesContextProvider = props => {
     const [destaques, setDestaques] = useState(results);
     const [allMovies, setAllMovies] = useState(results);
     const [filterMovies, setFilterMovies] = useState([]);
+    const [isFavorite, setIsFavorite] = useState(false);
     const [content, setContent] = useState({
         mainItem: {},
         main: [],
@@ -30,7 +31,7 @@ const MoviesContextProvider = props => {
     }
 
     return (
-        <MoviesContext.Provider value={{ allMovies, destaques, filterMovies, filteredMovies }}>
+        <MoviesContext.Provider value={{ allMovies, destaques, filterMovies, filteredMovies, isFavorite, setIsFavorite}}>
             {props.children}
         </MoviesContext.Provider>
     );

@@ -55,5 +55,32 @@ export const dataAllMovies = {
             highlight: true,
             nota: []
         },
+        {
+            id: id,
+            title: "A Fuga das Galinhas",
+            overview: "O galo Rocky e a galinha Ginger querem ajudar todas as outras galinhas a fugirem da granja onde vivem em cativeiro.",
+            poster: require('./assets/img/a-fuga-das-galinhas.jpg'),
+            watched: false,
+            highlight: false,
+            nota: []
+        },
+        {
+            id: id,
+            title: "AmarElo",
+            overview: "Nos bastidores do show no Theatro Municipal de São Paulo, o rapper e ativista Emicida celebra o grande legado da cultura negra brasileira.",
+            poster: require('./assets/img/amarelo.jpg'),
+            watched: false,
+            highlight: false,
+            nota: []
+        },
+        {
+            id: id,
+            title: "Rocketman",
+            overview: "Em reabilitação, Elton John relembra suas origens humildes, as músicas atemporais e os momentos de inspiração e excesso. Baseado em sua verdadeira história.",
+            poster: require('./assets/img/rocketman.jpeg'),
+            watched: false,
+            highlight: false,
+            nota: []
+        },
     ]
 };
