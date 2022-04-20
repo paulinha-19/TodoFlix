@@ -5,7 +5,7 @@ import { MoviesContext } from '../../context/MoviesContext';
 import imgLoading from '../../assets/img/imgLoading.png';
 import noResult from '../../assets/img/noResult.png';
 import IconHeart from '../../assets/icon/icon-heart.png';
-import IconLike from '../../assets/icon/icon-heart.png';
+import IconLike from '../../assets/icon/icon-like.png';
 
 //css
 import '../../styles/Destaques.css';
@@ -38,7 +38,7 @@ const SearchResults = () => {
     };
 
     useEffect(() => {
-        if (word.trim().length <= 0) {
+        if (word.length <= 0) {
             setValidator(false);
             setIsLoading(false);
         } else {
@@ -47,33 +47,27 @@ const SearchResults = () => {
     }, [word]);
 
     return (
-        <div>
-            Resultado para {word}
+        <div className='container-search'>
+            {/* Resultado para {word} */}
             {isLoading && (
                 <div className="cargando">
                     <h3 className="loading"> Loading...</h3>
                     <img className="imgLoading" src={imgLoading} alt="Image Loading" />
                 </div>
             )}
-            {!validator && (
-                <h3 className="validator">
-                    {" "}
-                    ❌ Não foram encontrados filmes que correspondam aos seus critérios de busca ❌
-                </h3>
-            )}
             {results ? (
                 movies.map((data, index) => {
                     return (
-                        <div key={index} className='container-card'>
+                        <div key={index} className='container-card container-card-search'>
                             <div className='card-img'>
                                 <img alt={data.title} src={data.poster} />
                                 <i style={isFavorite ? { color: "#ff0000" } : { color: "#000" }}
-                                    className={isFavorite ? 'heartIcon' : 'hidden heartIcon'}
+                                    className={isFavorite ? 'heart-icon-search heartIcon' : 'hidden heart-icon-search heartIcon'}
                                 >
                                     <img src={IconHeart} alt={data.title} />
                                 </i>
                             </div>
-                            <div className='box-content'>
+                            <div className='box-content box-content-search'>
                                 <div className='box-title-vote'>
                                     <h4 className='card-title'>
                                         {data.title}
@@ -95,9 +89,9 @@ const SearchResults = () => {
             ) : (
                 <div className="noResults">
                     <h1 className="validator">
-                        It looks like there aren't any matches for your search
+                        Não foram encontrados filmes que correspondam aos seus critérios de busca
                     </h1>
-                    <img className="noMovieImg" src={noResult} alt="Result not found" />
+                    <img className="noMovieImg" src={noResult} alt="Resultado não encontrado" />
                 </div>
             )}
         </div >

@@ -19,6 +19,31 @@
     margin-top: 30px;
 }
 
+.container-search {
+    display: flex;
+    justify-content: flex-start;
+    flex-wrap: wrap;
+    position: relative;
+}
+
+.container-card-search {
+    margin-bottom: 5rem;
+    padding-right: 1.5rem;
+    max-width: 300px;
+    height: 300px;
+}
+
+.box-content-search {
+    padding-top: 0.5rem;
+}
+
+.heart-icon-search{
+    position: absolute;
+    z-index: 10;
+    top: 8px;
+    right: 30px;
+}
+
 @media (max-width: 992px) {
     .notFound {
         margin-top: 50px;
