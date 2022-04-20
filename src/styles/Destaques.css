@@ -11,7 +11,7 @@
     overflow: hidden;
 } */
 
-.cards img {
+.card-img img {
     max-width: 100%;
     height: auto;
     vertical-align: middle;
@@ -56,7 +56,7 @@
 
 .box-vote-like{
     display: flex;
-    gap: 0 1rem;
+    gap: 0 0.7rem;
 }
 
 .slick-slide{

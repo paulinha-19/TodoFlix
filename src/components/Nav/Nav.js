@@ -1,12 +1,14 @@
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import { Navbar, Nav, Form, FormControl, Button, Container, NavDropdown } from "react-bootstrap";
 import { Link, useNavigate } from "react-router-dom";
+import { MoviesContext } from '../../context/MoviesContext';
 //css
 import '../../styles/Nav.css';
 import UserIcon from '../../assets/icon/user-icon.jpg';
 
 
 const NavbarComp = () => {
+    const {filteredMovies} = useContext(MoviesContext);
     const [show, setShow] = useState(false);
     let navigate = useNavigate();
 
@@ -14,7 +16,7 @@ const NavbarComp = () => {
         e.preventDefault();
         let word = e.target.search.value;
         e.currentTarget.reset();
-        navigate(`/search-results?search=${word}`);
+        navigate.push(`/search-results?search=${word}`);
     };
 
     return (

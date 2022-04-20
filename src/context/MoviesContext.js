@@ -7,13 +7,30 @@ export const MoviesContext = createContext();
 const MoviesContextProvider = props => {
     const results = dataAllMovies.movies;
     const [destaques, setDestaques] = useState(results);
+    const [allMovies, setAllMovies] = useState(results);
+    const [filterMovies, setFilterMovies] = useState([]);
     const [content, setContent] = useState({
         mainItem: {},
         main: [],
     });
-    //destaques
+    //destaques 
+
+
+    //!searchInput ? pacientes: pacientes.filter(paciente => paciente.nome.toLowerCase().includes(searchInput.toLowerCase()))
+
+    const filteredMovies = (event) => {
+        const filterResult = allMovies.filter((movie) => {
+            if (movie.title.toLowerCase().includes(event.target.value.toLowerCase())) {
+                return true;
+            }
+        });
+        setFilterMovies({
+            filterMovies: filterResult
+        });
+    }
+
     return (
-        <MoviesContext.Provider value={{ destaques }}>
+        <MoviesContext.Provider value={{ destaques, filterMovies, filteredMovies }}>
             {props.children}
         </MoviesContext.Provider>
     );

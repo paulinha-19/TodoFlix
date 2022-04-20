@@ -39,6 +39,15 @@ export const dataAllMovies = {
         },
         {
             id: id,
+            title: "Spider-man",
+            overview: "Após ser picado por uma aranha radioativa, o garoto Miles Morales logo aprende a lançar teias com seus parceiros de um universo alternativo.",
+            poster: require('./assets/img/spider-man.png'),
+            watched: false,
+            highlight: true,
+            nota: []
+        },
+        {
+            id: id,
             title: "Que Horas Ela Volta",
             overview: "Val é a fiel empregada doméstica de uma família rica. Mas a chegada de sua filha gera tensão na casa e faz com que ela comece a questionar esse papel.",
             poster: require('./assets/img/que-horas-ela-volta.png'),

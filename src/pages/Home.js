@@ -4,7 +4,7 @@ import Destaques from '../components/Destaques/Destaques';
 import { MoviesContext } from '../context/MoviesContext';
 
 const Home = () => {
-  const {getDestaques} = useContext(MoviesContext);
+  const { filterMovies } = useContext(MoviesContext);
   return (
     <div>
       <MainContent></MainContent>

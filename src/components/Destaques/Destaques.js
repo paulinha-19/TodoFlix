@@ -22,7 +22,7 @@ const Destaques = () => {
     infinite: false,
     autoplay: true,
     speed: 500,
-    slidesToShow: 3,
+    slidesToShow: 4,
     infinite: true,
     slidesToScroll: 1,
     initialSlide: 0,
@@ -52,41 +52,41 @@ const Destaques = () => {
       }
     ]
   };
+
   const filteredHighlight = destaques.filter(movie => movie.highlight === true);
+  
   const sliders = () => {
-    return filteredHighlight.map(data => {
+    return filteredHighlight.map((data,index) => {
       return (
-        <div key={data.title} className='container-card'>
-          <div className='cards'>
+        <div key={index} className='container-card'>
+          <div className='card-img'>
             <img alt={data.title} src={data.poster} />
             <i style={isFavorite ? { color: "#ff0000" } : { color: "#000" }}
               className={isFavorite ? 'heartIcon' : 'hidden heartIcon'}
-              >
-                <img src={IconHeart} alt={data.title}/>
+            >
+              <img src={IconHeart} alt={data.title} />
             </i>
-            </div>
-            <div className='box-content'>
-              <div className='box-title-vote'>
-                <h4 className='card-title'>
-                  {data.title}
-                </h4>
-                <div className='box-vote-like'>
-                  <span className='card-vote-average'>4/5</span>
-                  <i className='icon-like-destaques'>
-                    <img src={IconLike} alt="icon like"></img>
-                  </i>
-                </div>
+          </div>
+          <div className='box-content'>
+            <div className='box-title-vote'>
+              <h4 className='card-title'>
+                {data.title}
+              </h4>
+              <div className='box-vote-like'>
+                <span className='card-vote-average'>4/5</span>
+                <i className='icon-like-destaques'>
+                  <img src={IconLike} alt="icon like"></img>
+                </i>
               </div>
-              <p className='card-overview'>
-                {data.overview}
-              </p>
             </div>
-          
+            <p className='card-overview'>
+              {data.overview}
+            </p>
+          </div>
         </div>
       )
     });
   }
-
 
   return (
     <Slider {...settings}>
