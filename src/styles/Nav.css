@@ -41,17 +41,23 @@ button.add-filme-button.btn.btn-primary {
     width: 9rem;
 }
 
-button.add-filme-button.btn.btn-primary:hover{
+button.add-filme-button.btn.btn-primary:hover {
     border: 1px solid #dccecf;
 }
 
-input.search-input.form-control{
+input.search-input.form-control {
     background-color: #2C2C2C;
-    border: #2C2C2C;
+}
+
+input.search-input.form-control::placeholder {
     color: #fff;
 }
 
-input.search-input.form-control::placeholder{
+input.search-input.form-control {
     color: #fff;
+    border: 1px solid #2C2C2C;
+    display: block;
+    background: url('../assets/icon/icon-search.png') no-repeat left center #2C2C2C ;
+    background-size: 30px;
+    padding-left: 2.5rem;
 }
-
