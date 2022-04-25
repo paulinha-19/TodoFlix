@@ -3,10 +3,10 @@ import { useLocation } from 'react-router-dom';
 import { MoviesContext } from '../../context/MoviesContext';
 //img
 import imgLoading from '../../assets/img/imgLoading.png';
-import noResult from '../../assets/img/noResult.png';
-import IconHeart from '../../assets/icon/icon-heart.png';
+import noSearch from '../../assets/icon/search-nothing-found.svg'
 import IconLike from '../../assets/icon/icon-like.png';
 import { FaHeart } from 'react-icons/fa';
+import FoundSearch from '../FoundSearch/FoundSearch';
 
 
 //css
@@ -20,7 +20,6 @@ const SearchResults = () => {
     const [isLoading, setIsLoading] = useState(true);
     const [results, setResults] = useState(true);
     const [isFavorite, setIsFavorite] = useState(false);
-
 
     const location = useLocation();
     const query = location.search;
@@ -58,34 +57,37 @@ const SearchResults = () => {
                 </div>
             )}
             {movies.length > 0 ? (
-                movies.map((data, index) => {
+                movies.map((data) => {
                     return (
-                        <div key={index} className='container-card container-card-search'>
-                            <div className='card-img'>
-                                <img alt={data.title} src={data.poster} />
-                                <i onClick={handlerIcon}>
-                                    {isFavorite ?
-                                        <FaHeart className='heartIcon heartIconDefault' style={{ color: 'red' }} /> : <FaHeart className='heartIcon heartIconDefault' style={{ color: '#BABABA' }} />
-                                    }
-                                </i>
-                            </div>
-                            <div className='box-content box-content-search'>
-                                <div className='box-title-vote'>
-                                    <h4 className='card-title'>
-                                        {data.title}
-                                    </h4>
-                                    <div className='box-vote-like'>
-                                        <span className='card-vote-average'>4/5</span>
-                                        <i className='icon-like-destaques'>
-                                            <img src={IconLike} alt="icon like"></img>
-                                        </i>
-                                    </div>
+                        <>
+                            {/* <FoundSearch size={movies.length} word={word}/> */}
+                            <div key={data.id} className='container-card container-card-search'>
+                                <div className='card-img'>
+                                    <img alt={data.title} src={data.poster} />
+                                    <i onClick={handlerIcon}>
+                                        {isFavorite ?
+                                            <FaHeart className='heartIcon heartIconDefault' style={{ color: 'red' }} /> : <FaHeart className='heartIcon heartIconDefault' style={{ color: '#BABABA' }} />
+                                        }
+                                    </i>
                                 </div>
-                                <p className='card-overview'>
-                                    {data.overview}
-                                </p>
+                                <div className='box-content box-content-search'>
+                                    <div className='box-title-vote'>
+                                        <h4 className='card-title'>
+                                            {data.title}
+                                        </h4>
+                                        <div className='box-vote-like'>
+                                            <span className='card-vote-average'>4/5</span>
+                                            <i className='icon-like-destaques'>
+                                                <img src={IconLike} alt="icon like"></img>
+                                            </i>
+                                        </div>
+                                    </div>
+                                    <p className='card-overview'>
+                                        {data.overview}
+                                    </p>
+                                </div>
                             </div>
-                        </div>
+                        </>
                     );
                 })
             ) : (
@@ -93,18 +95,10 @@ const SearchResults = () => {
                     <h1 className="validator">
                         Não foram encontrados filmes que correspondam aos seus critérios de busca
                     </h1>
-                    <img className="noMovieImg" src={noResult} alt="Resultado não encontrado" />
-                    {/* {
-                        movies.length < 0 ?
-                            <p>Nenhum resultado encontrado para {word}</p> :
-                            movies.length === 1 ?
-                                <p>{movies.length} resultado encontrado para {word}</p> :
-                                <p>{movies.length} resultados encontrado para {word}</p>
-
-                    } */}
+                    <img className="noMovieImg" src={noSearch} alt="Resultado não encontrado" />
                 </div>
             )}
-        </div >
+        </div>
     );
 }
 

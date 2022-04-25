@@ -13,12 +13,12 @@ const Todos = () => {
   return (
     <div className='container-search'>
       {
-        allMovies.map((data, index) => {
+        allMovies.map((data) => {
           return (
-            <div key={index} className='container-card container-card-search'>
+            <div key={data.id} className='container-card container-card-search'>
               <div className='card-img'>
                 <img alt={data.title} src={data.poster} />
-                <i onClick={handlerIcon}>
+                <i>
                   {isFavorite ?
                     <FaHeart className='heartIcon heartIconDefault' style={{ color: 'red' }} /> : <FaHeart className='heartIcon heartIconDefault' style={{ color: '#BABABA' }} />
                   }
