@@ -6,13 +6,15 @@ import imgLoading from '../../assets/img/imgLoading.png';
 import noResult from '../../assets/img/noResult.png';
 import IconHeart from '../../assets/icon/icon-heart.png';
 import IconLike from '../../assets/icon/icon-like.png';
+import { FaHeart } from 'react-icons/fa';
+
 
 //css
-import '../../styles/Destaques.css';
 import '../../styles/SearchResults.css';
+import '../../styles/DefaultCard.css';
 
 const SearchResults = () => {
-    const { allMovies } = useContext(MoviesContext);
+    const { allMovies, handlerIcon } = useContext(MoviesContext);
     const [validator, setValidator] = useState(true);
     const [movies, setMovies] = useState([]);
     const [isLoading, setIsLoading] = useState(true);
@@ -41,6 +43,7 @@ const SearchResults = () => {
         if (word.length <= 0) {
             setValidator(false);
             setIsLoading(false);
+            setResults(false);
         } else {
             getData();
         }
@@ -48,23 +51,22 @@ const SearchResults = () => {
 
     return (
         <div className='container-search'>
-            {/* Resultado para {word} */}
             {isLoading && (
                 <div className="cargando">
                     <h3 className="loading"> Loading...</h3>
                     <img className="imgLoading" src={imgLoading} alt="Image Loading" />
                 </div>
             )}
-            {results ? (
+            {movies.length > 0 ? (
                 movies.map((data, index) => {
                     return (
                         <div key={index} className='container-card container-card-search'>
                             <div className='card-img'>
                                 <img alt={data.title} src={data.poster} />
-                                <i style={isFavorite ? { color: "#ff0000" } : { color: "#000" }}
-                                    className={isFavorite ? 'heart-icon-search heartIcon' : 'hidden heart-icon-search heartIcon'}
-                                >
-                                    <img src={IconHeart} alt={data.title} />
+                                <i onClick={handlerIcon}>
+                                    {isFavorite ?
+                                        <FaHeart className='heartIcon heartIconDefault' style={{ color: 'red' }} /> : <FaHeart className='heartIcon heartIconDefault' style={{ color: '#BABABA' }} />
+                                    }
                                 </i>
                             </div>
                             <div className='box-content box-content-search'>
@@ -92,6 +94,14 @@ const SearchResults = () => {
                         Não foram encontrados filmes que correspondam aos seus critérios de busca
                     </h1>
                     <img className="noMovieImg" src={noResult} alt="Resultado não encontrado" />
+                    {/* {
+                        movies.length < 0 ?
+                            <p>Nenhum resultado encontrado para {word}</p> :
+                            movies.length === 1 ?
+                                <p>{movies.length} resultado encontrado para {word}</p> :
+                                <p>{movies.length} resultados encontrado para {word}</p>
+
+                    } */}
                 </div>
             )}
         </div >

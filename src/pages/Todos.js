@@ -3,12 +3,13 @@ import { MoviesContext } from '../context/MoviesContext';
 //icon
 import IconHeart from '../assets/icon/icon-heart.png';
 import IconLike from '../assets/icon/icon-like.png';
-import '../styles/SearchResults.css';
 import '../styles/Destaques.css';
+import '../styles/DefaultCard.css';
+import { FaHeart } from 'react-icons/fa';
 
 
 const Todos = () => {
-  const { allMovies, isFavorite } = useContext(MoviesContext);
+  const { allMovies, isFavorite, handlerIcon } = useContext(MoviesContext);
   return (
     <div className='container-search'>
       {
@@ -17,10 +18,10 @@ const Todos = () => {
             <div key={index} className='container-card container-card-search'>
               <div className='card-img'>
                 <img alt={data.title} src={data.poster} />
-                <i style={isFavorite ? { color: "#ff0000" } : { color: "#000" }}
-                  className={isFavorite ? 'heart-icon-search heartIcon' : 'hidden heart-icon-search heartIcon'}
-                >
-                  <img src={IconHeart} alt={data.title} />
+                <i onClick={handlerIcon}>
+                  {isFavorite ?
+                    <FaHeart className='heartIcon heartIconDefault' style={{ color: 'red' }} /> : <FaHeart className='heartIcon heartIconDefault' style={{ color: '#BABABA' }} />
+                  }
                 </i>
               </div>
               <div className='box-content box-content-search'>

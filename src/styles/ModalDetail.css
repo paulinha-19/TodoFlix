@@ -1,0 +1,40 @@
+.movie_detail {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    height: 100%;
+    padding: 1rem 0.2rem;
+}
+
+.modal-body,
+.modal-header {
+    background: #000;
+    color: #fff;
+    border: 1px solid #fff;
+}
+
+button.btn-close {
+    background-color: #fff;
+}
+
+.modal-content .modal-header{
+    border-bottom: none;
+}
+
+.movie_detail img {
+    max-width: 100%;
+    height: auto;
+    vertical-align: middle;
+}
+
+.movie_title {
+    margin-top: 2rem;
+    font-weight: bold;
+    font-size: 1.7rem;
+}
+
+.movie_overview {
+    font-family: 'IBM Plex Sans KR', sans-serif;
+    font-size: 1rem;
+    font-weight: bold;
+}
