@@ -1,21 +1,22 @@
 import React, { useContext, useState } from 'react';
-import { Navbar, Nav, Form, FormControl, Button, Container, NavDropdown } from "react-bootstrap";
+import { Navbar, Nav, Form, FormControl, Modal, Container, NavDropdown, Row } from "react-bootstrap";
 import { Link, useNavigate } from "react-router-dom";
 import { MoviesContext } from '../../context/MoviesContext';
+import AddMovie from '../AddMovie/Form'
 //css
 import '../../styles/Nav.css';
 import UserIcon from '../../assets/icon/user-icon.jpg';
-
+import ButtonRed from '../../Global/styled/ButtonRed';
 
 const NavbarComp = () => {
-    const {filteredMovies} = useContext(MoviesContext);
-    const [show, setShow] = useState(false);
+    const { showStatus, handleShow, handleClose } = useContext(MoviesContext);
+    const [showCategory, setShowCategory] = useState(false);
     let navigate = useNavigate();
 
     let submitHandler = (e) => {
         e.preventDefault();
         let word = e.target.search.value;
-        console.log("PALAVRA DIGITADA",word);
+        console.log("PALAVRA DIGITADA", word);
         e.currentTarget.reset();
         navigate(`/search-results?search=${word}`); //  `search?query=${word}`
     };
@@ -36,9 +37,9 @@ const NavbarComp = () => {
                             <NavDropdown
                                 title="Categorias"
                                 id="navbarScrollingDropdown"
-                                show={show}
-                                onMouseEnter={() => setShow(true)}
-                                onMouseLeave={() => setShow(false)}
+                                show={showCategory}
+                                onMouseEnter={() => setShowCategory(true)}
+                                onMouseLeave={() => setShowCategory(false)}
                             >
                                 <NavDropdown.Item as={Link} to='/todos'>Todos</NavDropdown.Item>
                                 <NavDropdown.Item as={Link} to='/favoritos'>Favoritos</NavDropdown.Item>
@@ -46,9 +47,9 @@ const NavbarComp = () => {
                                 <NavDropdown.Item as={Link} to='/adicionados'>Adicionados</NavDropdown.Item>
                             </NavDropdown>
                         </Nav>
-                        <Button className='d-flex justify-content-center add-filme-button'>
+                        <ButtonRed className='d-flex justify-content-center' onClick={handleShow}>
                             Adicionar Filme
-                        </Button>
+                        </ButtonRed>
                         <Form className="d-flex" onSubmit={submitHandler}>
                             <FormControl
                                 type="text"
@@ -57,9 +58,6 @@ const NavbarComp = () => {
                                 aria-label="Search"
                                 name="search"
                             />
-                            {/* <Button className="searchButton" type="submit">
-                                Search
-                            </Button> */}
                         </Form>
                         <NavDropdown title={<img src={UserIcon} alt='userIcon' />} id="navbarScrollingDropdown">
                             <NavDropdown.Item >Perfil</NavDropdown.Item>
@@ -68,7 +66,15 @@ const NavbarComp = () => {
                     </Navbar.Collapse>
                 </Container>
             </Navbar>
-        </div>
+            <Modal show={showStatus} onHide={handleClose} backdrop="static" size="lg" >
+                <Modal.Header closeButton >
+                    <Modal.Title>Adicionar Filme</Modal.Title>
+                </Modal.Header>
+                <Modal.Body>
+                    <AddMovie />
+                </Modal.Body>
+            </Modal>
+        </div >
     );
 }
 

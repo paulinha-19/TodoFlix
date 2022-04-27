@@ -7,6 +7,7 @@ import noSearch from '../../assets/icon/search-nothing-found.svg'
 import IconLike from '../../assets/icon/icon-like.png';
 import { FaHeart } from 'react-icons/fa';
 import FoundSearch from '../FoundSearch/FoundSearch';
+import DefaultPoster from '../../DefaultPoster';
 
 
 //css

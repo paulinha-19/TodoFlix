@@ -12,6 +12,11 @@ const MoviesContextProvider = props => {
     const [isFavorite, setIsFavorite] = useState(false);
     const [favorites, setFavorites] = useState([]);
 
+    //modal
+    const [showStatus, setShowStatus] = useState(false);
+    const handleShow = () => setShowStatus(true);
+    const handleClose = () => setShowStatus(false);
+
     const filteredMovies = (event) => {
         const filterResult = allMovies.filter((movie) => {
             if (movie.title.toLowerCase().includes(event.target.value.toLowerCase())) {
@@ -55,7 +60,7 @@ const MoviesContextProvider = props => {
     // }
 
     return (
-        <MoviesContext.Provider value={{ allMovies, destaques, filterMovies, filteredMovies, isFavorite, setIsFavorite, favorites, setFavorites }}>
+        <MoviesContext.Provider value={{ allMovies, destaques, filterMovies, filteredMovies, isFavorite, setIsFavorite, favorites, setFavorites, showStatus, handleClose, handleShow }}>
             {props.children}
         </MoviesContext.Provider>
     );
