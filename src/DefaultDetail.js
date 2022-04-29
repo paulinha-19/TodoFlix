@@ -1,7 +1,7 @@
 import React from 'react';
 import NoImg from './assets/img/noimg.png'
 //css
-import './styles/ModalDetail.css';
+import './assets/styles/ModalDetail.css';
 
 const DefaultDetail = ({ id, poster, overview, title }) => {
   return (

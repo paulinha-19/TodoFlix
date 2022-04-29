@@ -4,6 +4,7 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from "yup";
 import { MoviesContext } from '../../context/MoviesContext';
 import { useNavigate } from 'react-router-dom';
+import {useLocalStorage} from '../../hooks/useLocalStorage'
 
 //css
 import '../../styles/Form.css';
@@ -40,14 +41,6 @@ const Form = () => {
             setNameImage(e.target.files[0].name);
         }
     }
-    // const handleFieldChange = (event) => {
-    //     const { name, value } = event.target;
-    //     setMovieInput({
-    //         ...movieInput,
-    //         [name]: value
-    //     });
-    // }
-
     const {
         register,
         handleSubmit,

@@ -8,8 +8,8 @@ import IconLike from './assets/icon/icon-like.png'
 //img
 import NoImg from './assets/img/noimg.png';
 //css
-import './styles/SearchResults.css';
-import './styles/Destaques.css';
+import './assets/styles/SearchResults.css';
+import './assets/styles/Destaques.css';
 
 const DefaultPoster = ({ title, id, poster, overview }) => {
     const { favorites, setFavorites, getMovieStorage, getMovieDatail, isFavorite, setIsFavorite } = useContext(MoviesContext);

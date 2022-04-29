@@ -11,8 +11,8 @@ import DefaultPoster from '../../DefaultPoster';
 
 
 //css
-import '../../styles/SearchResults.css';
-import '../../styles/DefaultCard.css';
+import '../../assets/styles/SearchResults.css';
+import '../../assets/styles/DefaultCard.css';
 
 const SearchResults = () => {
     const { allMovies, handlerIcon } = useContext(MoviesContext);

@@ -3,8 +3,8 @@ import { MoviesContext } from '../context/MoviesContext';
 //icon
 import IconHeart from '../assets/icon/icon-heart.png';
 import IconLike from '../assets/icon/icon-like.png';
-import '../styles/Destaques.css';
-import '../styles/DefaultCard.css';
+import '../assets/styles/Destaques.css';
+import '../assets/styles/DefaultCard.css';
 import { FaHeart } from 'react-icons/fa';
 
 

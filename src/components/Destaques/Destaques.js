@@ -5,8 +5,8 @@ import DefaultDetail from '../../DefaultDetail';
 import DefaultPoster from '../../DefaultPoster';
 
 //css
-import '../../styles/Destaques.css';
-import '../../styles/ModalDetail.css';
+import '../../assets/styles/Destaques.css';
+import '../../assets/styles/ModalDetail.css';
 //slick
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";

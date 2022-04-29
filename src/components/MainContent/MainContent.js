@@ -4,7 +4,7 @@ import { dataAllMovies } from '../../dataAllMovies';
 import IconLike from '../../assets/icon/icon-like.png';
 import IconHeart from '../../assets/icon/icon-heart.png';
 //css
-import '../../styles/MainContent.css';
+import '../../assets/styles/MainContent.css';
 
 const MainContent = () => {
     const results = dataAllMovies.movies;

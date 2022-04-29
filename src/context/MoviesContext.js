@@ -1,4 +1,5 @@
 import React, { useState, createContext, useEffect } from 'react';
+import {useLocalStorage} from '../hooks/useLocalStorage';
 
 //data
 import { dataAllMovies } from '../dataAllMovies';
@@ -11,7 +12,7 @@ const MoviesContextProvider = props => {
     const [isFavorite, setIsFavorite] = useState(false);
     const [favorites, setFavorites] = useState([]);
     const [rating, setRating] = useState();
-    const [addMovie, setAddMovie] = useState([]);
+    const [addMovie, setAddMovie] = useLocalStorage("addMovies", []);
 
     // useEffect(() => {
     //     setAddMovie(results);
