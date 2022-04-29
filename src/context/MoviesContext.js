@@ -1,5 +1,4 @@
 import React, { useState, createContext, useEffect } from 'react';
-// import { v4 as uuid } from 'uuid';
 
 //data
 import { dataAllMovies } from '../dataAllMovies';
@@ -11,6 +10,15 @@ const MoviesContextProvider = props => {
     const [filterMovies, setFilterMovies] = useState([]);
     const [isFavorite, setIsFavorite] = useState(false);
     const [favorites, setFavorites] = useState([]);
+    const [rating, setRating] = useState();
+    const [addMovie, setAddMovie] = useState([]);
+
+    // useEffect(() => {
+    //     setAddMovie(results);
+    //   }, []);
+      const addfilms = (newMovie) => {
+        setAddMovie([...addMovie, newMovie]);
+      };
 
     //modal
     const [showStatus, setShowStatus] = useState(false);
@@ -60,7 +68,7 @@ const MoviesContextProvider = props => {
     // }
 
     return (
-        <MoviesContext.Provider value={{ allMovies, destaques, filterMovies, filteredMovies, isFavorite, setIsFavorite, favorites, setFavorites, showStatus, handleClose, handleShow }}>
+        <MoviesContext.Provider value={{ allMovies, destaques, filterMovies, filteredMovies, isFavorite, setIsFavorite, favorites, setFavorites, showStatus, handleClose, handleShow, rating, setRating, addMovie, setAddMovie }}>
             {props.children}
         </MoviesContext.Provider>
     );

@@ -1,78 +1,112 @@
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from "yup";
+import { MoviesContext } from '../../context/MoviesContext';
+import { useNavigate } from 'react-router-dom';
+
 //css
 import '../../styles/Form.css';
 import RedButton from '../../Global/styled/ButtonRed';
 import styled from 'styled-components';
 
-//image
-import ImgForm from '../../assets/img/img-form.png'
 
 const CancelButton = styled(RedButton)`
     background-color: #000;
     border: 1px solid #000;
 `
+const styles = {
+    preview: {
+        display: "flex",
+        flexDirection: "column"
+    },
+    image: { maxWidth: "260px", maxHeight: "148px" }
+};
 
-const Container = styled.div`
-    display: flex;
-    justify-content: space-between;
- 
-`
-
-const schema = yup.object({
-    name: yup.string().max(50, "Máximo de 50 caracteres").required("Nome do filme é obrigatório"),
-    descricao: yup.string().max(200, "Máximo de 200 caracteres").required("Descrição do filme é obrigatório"),
-    status: yup.string().required("Status do filme é obrigatório"),
-}).required();
+const schema = yup.object().shape({
+    title: yup.string().max(50, "Máximo de 50 caracteres").required("Nome do filme é obrigatório"),
+    overview: yup.string().max(200, "Máximo de 200 caracteres").required("Descrição do filme é obrigatório"),
+    status: yup.string().required("Status do filme é obrigatório").nullable(),
+    poster: yup.mixed().required("A imagem é obrigatória")
+});
 
 const Form = () => {
+    const { addMovie, setAddMovie, rating, setRating } = useContext(MoviesContext);
     const [selectedImage, setSelectedImage] = useState();
     const [nameImage, setNameImage] = useState();
     const onImageChange = (e) => {
-        if (e.target.files && e.target.files.length > 0) {
-            setSelectedImage(e.target.files[0]);
+        if (e.target.files && e.target.files[0]) {
+            setSelectedImage(URL.createObjectURL(e.target.files[0]));
             setNameImage(e.target.files[0].name);
         }
     }
+    // const handleFieldChange = (event) => {
+    //     const { name, value } = event.target;
+    //     setMovieInput({
+    //         ...movieInput,
+    //         [name]: value
+    //     });
+    // }
 
     const {
         register,
         handleSubmit,
-        watch,
-        // mixed,
+        reset,
         formState: { errors }
     } = useForm({
         resolver: yupResolver(schema)
     });
-    const onSubmit = (data) => {
-        console.log(data);
+
+    const defaultValues = {
+        title: "",
+        overview: "",
+        poster: "",
+        rating: [],
     };
+
+    let navigate = useNavigate();
+    const onSubmit = (data, event) => {
+        const dataMovie = {
+            id: Date.now(),
+            title: data.title,
+            overview: data.overview,
+            poster: data.poster,
+            watched: false,
+            highlight: false,
+            favorite: false
+        }
+        const newMovie = [...addMovie, dataMovie];
+        setAddMovie(newMovie);
+        event.target.reset(); // reset after form submit
+        setSelectedImage("");
+        setTimeout(() => navigate("/adicionados"), 1000);
+        alert(JSON.stringify(data));
+        console.log(newMovie);
+    };
+
     return (
         <form onSubmit={handleSubmit(onSubmit)}>
             <div className="sub-container1">
                 <div className="item1">
-                    <label style={{ display: 'flex' }} htmlFor="name">
+                    <label style={{ display: 'flex' }} htmlFor="title">
                         Nome do filme
-                        <input id="name" type="text" {...register("name")} />
-                        <span className='errorMsgName'>{errors.name?.message}</span>
+                        <input id="title" type="text" {...register("title")} />
+                        <span className='errorMsgName'>{errors.title?.message}</span>
                     </label>
 
-                    <label style={{ display: 'flex' }} htmlFor="descricao">
+                    <label style={{ display: 'flex' }} htmlFor="overview">
                         <div className='descricao'>
                             <span>Descrição</span>
                             <span>0/200</span>
                         </div>
-                        <textarea id="descricao" rows="5" cols="40" {...register("descricao")} />
-                        <span className='errorMsgDescricao'>{errors.descricao?.message}</span>
+                        <textarea id="overview" rows="5" cols="40" {...register("overview")} />
+                        <span className='errorMsgDescricao'>{errors.overview?.message}</span>
                     </label>
 
                     <label>Status</label>
-                    <span>{errors.status?.message}</span>
                     <div className='status'>
                         <label style={{ display: 'flex' }} htmlFor="assisti">
-                            <input id="assisti" name='status' value="assisti" type="radio" {...register("status")} />
+                            <input id="assisti" name='status' value="assisti" type="radio" {...register("status")} checked />
                             Já assisti
                         </label>
                         <label style={{ display: 'flex' }} htmlFor="naoAssisti">
@@ -80,6 +114,7 @@ const Form = () => {
                             Não assisti
                         </label>
                     </div>
+                    <span>{errors.status?.message}</span>
 
                 </div>
             </div>
@@ -89,19 +124,19 @@ const Form = () => {
                     {selectedImage && (
                         <div style={styles.preview}>
                             <img
-                                src={URL.createObjectURL(selectedImage)}
+                                src={selectedImage}
                                 style={styles.image}
                             />
                             <p>{nameImage}</p>
-                            {/* <span className=''>{errors.file?.message}</span> */}
+                            <span className='errorMsgDescricao'>{errors.poster?.message}</span>
                         </div>
                     )}
                     <label className='selecionar-imagem' htmlFor='file'>Selecionar imagem</label>
                     <input
                         type='file'
-                        name='file'
                         id='file'
                         accept=".png, .jpg, .jpeg"
+                        {...register("poster")}
                         onChange={onImageChange}
                     >
                     </input>
@@ -109,7 +144,7 @@ const Form = () => {
             </div>
             <div className='box-buttons'>
                 <RedButton type='submit'>Confirmar</RedButton>
-                <CancelButton type="reset">Cancelar</CancelButton>
+                <CancelButton onClick={() => reset({ ...defaultValues }, setSelectedImage())}>Cancelar</CancelButton>
             </div>
         </form>
     );
@@ -117,10 +152,38 @@ const Form = () => {
 
 export default Form
 
-const styles = {
-    preview: {
-        display: "flex",
-        flexDirection: "column"
-    },
-    image: { maxWidth: "260px", maxHeight: "148px" }
-};
+// this.setState({ myArray: [...this.state.myArray, 'new value'] })
+// this.setState({ myArray: [...this.state.myArray, ...[1,2,3] ] })
+
+// const handleAdd = (todo) => {
+//     const newTodos = [...todos];
+//     newTodos.push(todo);
+//     setTodos(newTodos);
+//   }
+
+// const [inputs, setInputs] = useState({});
+
+//   const handleChange = (event) => {
+//     const name = event.target.name;
+//     const value = event.target.value;
+//     setInputs(values => ({...values, [name]: value}))
+//   }
+
+//   const handleSubmit = (event) => {
+//     event.preventDefault();
+//     alert(inputs);
+//   }
+
+
+// const handleAddButtonClick = () => {
+// 	const newItem = {
+// 		itemName: inputValue,
+// 		quantity: 1,
+// 		isSelected: false,
+// 	};
+
+// 	const newItems = [...items, newItem];
+
+// 	setItems(newItems);
+// 	setInputValue('');
+// };
