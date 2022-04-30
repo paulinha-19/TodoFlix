@@ -4,7 +4,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { MoviesContext } from '../../context/MoviesContext';
 import AddMovie from '../AddMovie/Form'
 //css
-import '../../styles/Nav.css';
+import '../../assets/styles/Nav.css';
 import UserIcon from '../../assets/icon/user-icon.jpg';
 import ButtonRed from '../../Global/styled/ButtonRed';
 
@@ -16,7 +16,6 @@ const NavbarComp = () => {
     let submitHandler = (e) => {
         e.preventDefault();
         let word = e.target.search.value;
-        console.log("PALAVRA DIGITADA", word);
         e.currentTarget.reset();
         navigate(`/search-results?search=${word}`); //  `search?query=${word}`
     };

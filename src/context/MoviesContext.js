@@ -11,16 +11,9 @@ const MoviesContextProvider = props => {
     const [filterMovies, setFilterMovies] = useState([]);
     const [isFavorite, setIsFavorite] = useState(false);
     const [favorites, setFavorites] = useState([]);
-    const [rating, setRating] = useState();
+    const [rating, setRating] = useState(0);
     const [addMovie, setAddMovie] = useLocalStorage("addMovies", []);
-
-    // useEffect(() => {
-    //     setAddMovie(results);
-    //   }, []);
-      const addfilms = (newMovie) => {
-        setAddMovie([...addMovie, newMovie]);
-      };
-
+    
     //modal
     const [showStatus, setShowStatus] = useState(false);
     const handleShow = () => setShowStatus(true);

@@ -1,8 +1,21 @@
-import React from 'react'
+import React, { useContext } from 'react';
+import { MoviesContext } from '../context/MoviesContext';
 
 const Adicionados = () => {
+  const { addMovie } = useContext(MoviesContext);
+
   return (
-    <div>Adicionados</div>
+    <div>
+      Adicionados
+      {
+        addMovie.map((item) => {
+          return (
+            <p>{item.title}</p>
+          );
+        })
+      }
+      {console.log("ADD", addMovie)}
+    </div>
   )
 }
 

@@ -33,7 +33,7 @@ input.search-input.form-control {
     color: #fff;
     border: 1px solid #2C2C2C;
     display: block;
-    background: url('../assets/icon/icon-search.png') no-repeat left center #2C2C2C ;
+    background: url('../icon/icon-search.png') no-repeat left center #2C2C2C ;
     background-size: 30px;
     padding: 1.2rem 0 1.2rem 2.5rem;
 }

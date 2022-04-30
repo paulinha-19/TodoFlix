@@ -4,10 +4,9 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from "yup";
 import { MoviesContext } from '../../context/MoviesContext';
 import { useNavigate } from 'react-router-dom';
-import {useLocalStorage} from '../../hooks/useLocalStorage'
-
+import { Rating } from 'react-simple-star-rating';
 //css
-import '../../styles/Form.css';
+import '../../assets/styles/Form.css';
 import RedButton from '../../Global/styled/ButtonRed';
 import styled from 'styled-components';
 
@@ -28,13 +27,17 @@ const schema = yup.object().shape({
     title: yup.string().max(50, "Máximo de 50 caracteres").required("Nome do filme é obrigatório"),
     overview: yup.string().max(200, "Máximo de 200 caracteres").required("Descrição do filme é obrigatório"),
     status: yup.string().required("Status do filme é obrigatório").nullable(),
-    poster: yup.mixed().required("A imagem é obrigatória")
+    poster: yup.mixed().required("A imagem é obrigatória"),
 });
 
 const Form = () => {
     const { addMovie, setAddMovie, rating, setRating } = useContext(MoviesContext);
     const [selectedImage, setSelectedImage] = useState();
     const [nameImage, setNameImage] = useState();
+
+    const handleRating = (rate) => {
+        setRating(rate)
+    }
     const onImageChange = (e) => {
         if (e.target.files && e.target.files[0]) {
             setSelectedImage(URL.createObjectURL(e.target.files[0]));
@@ -54,7 +57,7 @@ const Form = () => {
         title: "",
         overview: "",
         poster: "",
-        rating: [],
+        rating: "",
     };
 
     let navigate = useNavigate();
@@ -66,7 +69,7 @@ const Form = () => {
             poster: data.poster,
             watched: false,
             highlight: false,
-            favorite: false
+            favorite: false,
         }
         const newMovie = [...addMovie, dataMovie];
         setAddMovie(newMovie);
@@ -80,6 +83,7 @@ const Form = () => {
     return (
         <form onSubmit={handleSubmit(onSubmit)}>
             <div className="sub-container1">
+                {console.log("FORM", addMovie)}
                 <div className="item1">
                     <label style={{ display: 'flex' }} htmlFor="title">
                         Nome do filme
@@ -135,6 +139,19 @@ const Form = () => {
                     </input>
                 </div>
             </div>
+            {/* <div className='container-rating'>
+                <label htmlFor='rating'>Nota</label>
+                <Rating 
+                name="rating" 
+                id='rating' 
+                onClick={handleRating} 
+                ratingValue={rating} 
+                showTooltip
+                transition
+                >
+                </Rating>
+                {console.log("RATING", rating)}
+            </div> */}
             <div className='box-buttons'>
                 <RedButton type='submit'>Confirmar</RedButton>
                 <CancelButton onClick={() => reset({ ...defaultValues }, setSelectedImage())}>Cancelar</CancelButton>
