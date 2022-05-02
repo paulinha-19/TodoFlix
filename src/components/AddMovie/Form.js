@@ -27,18 +27,20 @@ const schema = yup.object().shape({
     title: yup.string().max(50, "Máximo de 50 caracteres").required("Nome do filme é obrigatório"),
     overview: yup.string().max(200, "Máximo de 200 caracteres").required("Descrição do filme é obrigatório"),
     status: yup.string().required("Status do filme é obrigatório").nullable(),
-    poster: yup.mixed().required("A imagem é obrigatória"),
 });
 
 const Form = () => {
+    let navigate = useNavigate();
     const { addMovie, setAddMovie, rating, setRating } = useContext(MoviesContext);
     const [selectedImage, setSelectedImage] = useState();
     const [nameImage, setNameImage] = useState();
-
     const handleRating = (rate) => {
-        setRating(rate)
+        setRating(rate);
+        return rate;
     }
-    const onImageChange = (e) => {
+    const ratingValue = handleRating(rating);
+
+    const onImageChange = (e) => {  //preview image
         if (e.target.files && e.target.files[0]) {
             setSelectedImage(URL.createObjectURL(e.target.files[0]));
             setNameImage(e.target.files[0].name);
@@ -59,24 +61,22 @@ const Form = () => {
         poster: "",
         rating: "",
     };
-
-    let navigate = useNavigate();
     const onSubmit = (data, event) => {
         const dataMovie = {
             id: Date.now(),
             title: data.title,
             overview: data.overview,
-            poster: data.poster,
+            poster: data.poster[0],
+            rating: ratingValue,
             watched: false,
             highlight: false,
             favorite: false,
-        }
+        };
         const newMovie = [...addMovie, dataMovie];
         setAddMovie(newMovie);
         event.target.reset(); // reset after form submit
         setSelectedImage("");
         setTimeout(() => navigate("/adicionados"), 1000);
-        alert(JSON.stringify(data));
         console.log(newMovie);
     };
 
@@ -112,7 +112,18 @@ const Form = () => {
                         </label>
                     </div>
                     <span>{errors.status?.message}</span>
-
+                    <div className='rating'>
+                        <label htmlFor='rating'>Nota</label>
+                        <Rating
+                            name="rating"
+                            id='rating'
+                            onClick={handleRating}
+                            ratingValue={rating}
+                            showTooltip
+                            tooltipArray={['1/5', '2/5', '3/5', '4/5', '5/5']}
+                        >
+                        </Rating>
+                    </div>
                 </div>
             </div>
             <div className="sub-container2">
@@ -125,7 +136,6 @@ const Form = () => {
                                 style={styles.image}
                             />
                             <p>{nameImage}</p>
-                            <span className='errorMsgDescricao'>{errors.poster?.message}</span>
                         </div>
                     )}
                     <label className='selecionar-imagem' htmlFor='file'>Selecionar imagem</label>
@@ -133,28 +143,15 @@ const Form = () => {
                         type='file'
                         id='file'
                         accept=".png, .jpg, .jpeg"
-                        {...register("poster")}
+                        {...register("poster", { required: true })}
                         onChange={onImageChange}
-                    >
-                    </input>
+                    />
+                    {errors.poster && <span className='errorMsgDescricao'>Selecione uma imagem</span>}
                 </div>
             </div>
-            {/* <div className='container-rating'>
-                <label htmlFor='rating'>Nota</label>
-                <Rating 
-                name="rating" 
-                id='rating' 
-                onClick={handleRating} 
-                ratingValue={rating} 
-                showTooltip
-                transition
-                >
-                </Rating>
-                {console.log("RATING", rating)}
-            </div> */}
             <div className='box-buttons'>
                 <RedButton type='submit'>Confirmar</RedButton>
-                <CancelButton onClick={() => reset({ ...defaultValues }, setSelectedImage())}>Cancelar</CancelButton>
+                <CancelButton onClick={() => reset({ ...defaultValues }, setSelectedImage(), setRating())}>Cancelar</CancelButton>
             </div>
         </form>
     );
@@ -162,38 +159,3 @@ const Form = () => {
 
 export default Form
 
-// this.setState({ myArray: [...this.state.myArray, 'new value'] })
-// this.setState({ myArray: [...this.state.myArray, ...[1,2,3] ] })
-
-// const handleAdd = (todo) => {
-//     const newTodos = [...todos];
-//     newTodos.push(todo);
-//     setTodos(newTodos);
-//   }
-
-// const [inputs, setInputs] = useState({});
-
-//   const handleChange = (event) => {
-//     const name = event.target.name;
-//     const value = event.target.value;
-//     setInputs(values => ({...values, [name]: value}))
-//   }
-
-//   const handleSubmit = (event) => {
-//     event.preventDefault();
-//     alert(inputs);
-//   }
-
-
-// const handleAddButtonClick = () => {
-// 	const newItem = {
-// 		itemName: inputValue,
-// 		quantity: 1,
-// 		isSelected: false,
-// 	};
-
-// 	const newItems = [...items, newItem];
-
-// 	setItems(newItems);
-// 	setInputValue('');
-// };

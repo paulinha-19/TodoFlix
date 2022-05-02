@@ -14,7 +14,6 @@ const Adicionados = () => {
           );
         })
       }
-      {console.log("ADD", addMovie)}
     </div>
   )
 }
