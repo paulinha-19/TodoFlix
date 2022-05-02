@@ -27,6 +27,11 @@ const schema = yup.object().shape({
     title: yup.string().max(50, "Máximo de 50 caracteres").required("Nome do filme é obrigatório"),
     overview: yup.string().max(200, "Máximo de 200 caracteres").required("Descrição do filme é obrigatório"),
     status: yup.string().required("Status do filme é obrigatório").nullable(),
+    poster: yup.mixed()
+        .required("Selecione uma imagem")
+    // .test("fileSize", "Tamanho máximo da imagem de 10Mb", (value) => {
+    //     return value && value[0].size <= 10000
+    // })
 });
 
 const Form = () => {
@@ -140,13 +145,13 @@ const Form = () => {
                     )}
                     <label className='selecionar-imagem' htmlFor='file'>Selecionar imagem</label>
                     <input
+                        {...register("poster")}
                         type='file'
                         id='file'
                         accept=".png, .jpg, .jpeg"
-                        {...register("poster", { required: true })}
-                        onChange={onImageChange}
+                    // onChange={onImageChange}
                     />
-                    {errors.poster && <span className='errorMsgDescricao'>Selecione uma imagem</span>}
+                    {errors.poster && <span className='errorMsgDescricao'>{errors.poster.message}</span>}
                 </div>
             </div>
             <div className='box-buttons'>
