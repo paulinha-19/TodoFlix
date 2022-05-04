@@ -12,7 +12,8 @@ const Adicionados = () => {
         addMovie.map((data) => {
           return (
             <div key={data.id}>
-              <DefaultPoster {...data} key={data.id} />
+              <p>{data.title}</p>
+              <img src={data.poster.base64} />
             </div>
           );
         })

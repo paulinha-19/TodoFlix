@@ -2,6 +2,7 @@ import React, { useContext, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from "yup";
+import { addMovieSchema } from '../../Validations/AddMovieValidation';
 import { MoviesContext } from '../../context/MoviesContext';
 import { useNavigate } from 'react-router-dom';
 import { Rating } from 'react-simple-star-rating';
@@ -36,66 +37,80 @@ const schema = yup.object().shape({
 const Form = () => {
     let navigate = useNavigate();
     const { addMovie, setAddMovie, rating, setRating } = useContext(MoviesContext);
-    const [file, setFile] = useState("");
-    const [imagePreview, setImagePreview] = useState("");
+    const [file, setFile] = useState(null);
+    const [base64URL, setBase64URL] = useState("");
     const [nameImage, setNameImage] = useState("");
     const handleRating = (rate) => {
         setRating(rate);
         return rate;
     }
-    const ratingValue = handleRating(rating);
-
-    const handleImageChange = (e) => {  //preview image
-        // if (e.target.files && e.target.files[0]) {
-        //     let reader = new FileReader();
-        //     let file = e.target.files[0];
-        //     reader.onloadend = () => {
-        //         setFile(file);
-        //         setImagePreview(reader.result);
-        //         setNameImage(e.target.files[0].name);
-        //         console.log("FILE", e.target.files[0]);
-        //     }
-        //     reader.readAsDataURL(file);
-        // }
-        
-    }
-    const getBase64 = (file) => {
-        return new Promise((resolve,reject) => {
-           const reader = new FileReader();
-           reader.onload = () => resolve(reader.result);
-           reader.onerror = error => reject(error);
-           reader.readAsDataURL(file);
-        });
-      }
-    const {
-        register,
-        handleSubmit,
-        reset,
-        formState: { errors }
-    } = useForm({
-        resolver: yupResolver(schema)
-    });
-
-    const defaultValues = {
+    const [addMovieInfo, setAddMovieInfo] = useState({
         title: "",
         overview: "",
-        poster: "",
         rating: "",
+    })
+    const ratingValue = handleRating(rating);
+    // const handleFileChange = (e) => {
+    //     if (e.target.files && e.target.files[0]) {
+    //         let file = e.target.files[0];
+    //         let preview = URL.createObjectURL(e.target.files[0]);
+    //         setFile(file)
+    //         setImagePreview(preview);
+    //         setNameImage(e.target.files[0].name);
+    //     }
+    // }
+
+    const getBase64 = (file) => {
+        return new Promise((resolve) => {
+            let fileInfo;
+            let baseURL = "";
+            let reader = new FileReader();
+            reader.readAsDataURL(file);
+            reader.onload = () => {
+                baseURL = reader.result;
+                resolve(baseURL);
+            };
+            console.log("FILEINFO", fileInfo);
+        });
     };
-    const onSubmit = (data, event) => {
-        if (data.poster[0] && ratingValue > 0) {
-            const dataMovie = {
+
+    const handleFileInputChange = (e) => {
+        let file = e.target.files[0];
+        let name = e.target.files[0].name;
+        getBase64(file)
+            .then((result) => {
+                file["base64"] = result;
+                setBase64URL(result);
+            })
+            .catch((err) => {
+                console.log(err);
+            });
+        setFile(file);
+        setNameImage(name);
+    };
+
+    const handleFieldChange = (event) => {
+        const { name, value } = event.target;
+        setAddMovieInfo({
+            ...addMovieInfo,
+            [name]: value
+        });
+    }
+
+    const handleSubmit = (event) => {
+        event.preventDefault();
+        if (ratingValue > 0 && file != null) {
+            const formData = {
                 id: Date.now(),
-                title: data.title,
-                overview: data.overview,
-                poster: data.poster[0],
+                title: addMovieInfo.title,
+                overview: addMovieInfo.overview,
+                poster: file,
                 rating: ratingValue,
                 watched: false,
                 highlight: false,
                 favorite: false,
             };
-            console.log("IMAGEM", data.poster[0]);
-            const newMovie = [...addMovie, dataMovie];
+            const newMovie = [...addMovie, formData];
             setAddMovie(newMovie);
             event.target.reset(); // reset after form submit
             setFile("");
@@ -106,14 +121,13 @@ const Form = () => {
     };
 
     return (
-        <form onSubmit={handleSubmit(onSubmit)}>
+        <form onSubmit={handleSubmit}>
             <div className="sub-container1">
                 {console.log("FORM", addMovie)}
                 <div className="item1">
                     <label style={{ display: 'flex' }} htmlFor="title">
                         Nome do filme
-                        <input id="title" type="text" {...register("title")} />
-                        <span className='errorMsgName'>{errors.title?.message}</span>
+                        <input required id="title" type="text" name="title" value={addMovieInfo.title} onChange={handleFieldChange} />
                     </label>
 
                     <label style={{ display: 'flex' }} htmlFor="overview">
@@ -121,22 +135,20 @@ const Form = () => {
                             <span>Descrição</span>
                             <span>0/200</span>
                         </div>
-                        <textarea id="overview" rows="5" cols="40" {...register("overview")} />
-                        <span className='errorMsgDescricao'>{errors.overview?.message}</span>
+                        <textarea required id="overview" rows="5" cols="40" name="overview" value={addMovieInfo.overview} onChange={handleFieldChange} />
                     </label>
 
                     <label>Status</label>
                     <div className='status'>
                         <label style={{ display: 'flex' }} htmlFor="assisti">
-                            <input id="assisti" name='status' value="assisti" type="radio" {...register("status")} checked />
+                            <input id="assisti" name='status' value="assisti" type="radio" checked onChange={handleFieldChange} />
                             Já assisti
                         </label>
                         <label style={{ display: 'flex' }} htmlFor="naoAssisti">
-                            <input id="naoAssisti" name='status' value="naoAssisti" type="radio" {...register("status")} />
+                            <input id="naoAssisti" name='status' value="naoAssisti" type="radio" onChange={handleFieldChange} />
                             Não assisti
                         </label>
                     </div>
-                    <span>{errors.status?.message}</span>
                     <div className='rating'>
                         <label htmlFor='rating'>Nota</label>
                         <Rating
@@ -146,6 +158,8 @@ const Form = () => {
                             ratingValue={rating}
                             showTooltip
                             tooltipArray={['1/5', '2/5', '3/5', '4/5', '5/5']}
+                            value={addMovieInfo.rating}
+                            onChange={handleFieldChange}
                         >
                         </Rating>
                     </div>
@@ -157,25 +171,26 @@ const Form = () => {
                     {file && (
                         <div style={styles.preview}>
                             <img
-                                src={imagePreview}
+                                src={base64URL}
                                 style={styles.image}
                             />
                             <p>{nameImage}</p>
                         </div>
                     )}
-                    <label className='selecionar-imagem' htmlFor='file'>Selecionar imagem</label>
+                    <label className='selecionar-imagem' htmlFor='poster'>Selecionar imagem</label>
                     <input
-                        {...register("poster", { required: true })}
+                        required
+                        name="poster"
                         type='file'
-                        id='file'
+                        id='poster'
                         accept=".png, .jpg, .jpeg"
+                        onChange={handleFileInputChange}
                     />
-                    <span className='errorMsgDescricao'>{errors.poster?.message}</span>
                 </div>
             </div>
             <div className='box-buttons'>
                 <RedButton type='submit'>Confirmar</RedButton>
-                <CancelButton onClick={() => reset({ ...defaultValues }, setFile(), setRating())}>Cancelar</CancelButton>
+                <CancelButton type='reset'>Cancelar</CancelButton>
             </div>
         </form>
     );
