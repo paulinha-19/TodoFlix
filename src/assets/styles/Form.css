@@ -86,6 +86,12 @@ span.errorMsgName {
   color: #ff0000;
 }
 
+/* span.errorMsgDescricao::before,
+span.errorMsgName::before {
+  display: inline;
+  content: "⚠ ";
+} */
+
 span.errorMsgName {
   position: absolute;
   margin-top: 50px;
@@ -103,6 +109,6 @@ span.errorMsgName {
 
 .box-buttons {
   display: flex;
-  justify-content: center;
+  align-items: center;
   flex-wrap: wrap;
 }

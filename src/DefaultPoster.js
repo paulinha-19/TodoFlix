@@ -21,7 +21,11 @@ const DefaultPoster = ({ title, id, poster, overview }) => {
         <div>
             <div className='container-card'>
                 <div className='card-img'>
-                    <img alt={title} src={poster ? poster : NoImg} onClick={handleShow} />
+                    { poster ?
+                        <img alt={title} src={poster} onClick={handleShow} />
+                        :
+                        <img src={NoImg} alt={title}/>
+                    }
                     <i>
                         {isFavorite ?
                             <FaHeart className='heartIcon' style={{ color: 'red' }} /> : <FaHeart className='heartIcon' style={{ color: '#BABABA' }} />

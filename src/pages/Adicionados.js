@@ -1,21 +1,24 @@
 import React, { useContext } from 'react';
 import { MoviesContext } from '../context/MoviesContext';
+import DefaultPoster from '../DefaultPoster';
 
 const Adicionados = () => {
   const { addMovie } = useContext(MoviesContext);
 
   return (
     <div>
-      Adicionados
+      <h3>Adicionados</h3>
       {
-        addMovie.map((item) => {
+        addMovie.map((data) => {
           return (
-            <p>{item.title}</p>
+            <div key={data.id}>
+              <DefaultPoster {...data} key={data.id} />
+            </div>
           );
         })
       }
     </div>
-  )
+  );
 }
 
 export default Adicionados

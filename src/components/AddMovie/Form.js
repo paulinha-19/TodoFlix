@@ -24,11 +24,10 @@ const styles = {
 };
 
 const schema = yup.object().shape({
-    title: yup.string().max(50, "Máximo de 50 caracteres").required("Nome do filme é obrigatório"),
-    overview: yup.string().max(200, "Máximo de 200 caracteres").required("Descrição do filme é obrigatório"),
-    status: yup.string().required("Status do filme é obrigatório").nullable(),
-    poster: yup.mixed()
-        .required("Selecione uma imagem")
+    title: yup.string().max(50, "Máximo de 50 caracteres").required("⚠ Nome do filme é obrigatório"),
+    overview: yup.string().max(200, "Máximo de 200 caracteres").required("⚠ Descrição do filme é obrigatório"),
+    status: yup.string().required("⚠ Status do filme é obrigatório").nullable(),
+    poster: yup.mixed().required()
     // .test("fileSize", "Tamanho máximo da imagem de 10Mb", (value) => {
     //     return value && value[0].size <= 10000
     // })
@@ -37,20 +36,37 @@ const schema = yup.object().shape({
 const Form = () => {
     let navigate = useNavigate();
     const { addMovie, setAddMovie, rating, setRating } = useContext(MoviesContext);
-    const [selectedImage, setSelectedImage] = useState();
-    const [nameImage, setNameImage] = useState();
+    const [file, setFile] = useState("");
+    const [imagePreview, setImagePreview] = useState("");
+    const [nameImage, setNameImage] = useState("");
     const handleRating = (rate) => {
         setRating(rate);
         return rate;
     }
     const ratingValue = handleRating(rating);
 
-    const onImageChange = (e) => {  //preview image
-        if (e.target.files && e.target.files[0]) {
-            setSelectedImage(URL.createObjectURL(e.target.files[0]));
-            setNameImage(e.target.files[0].name);
-        }
+    const handleImageChange = (e) => {  //preview image
+        // if (e.target.files && e.target.files[0]) {
+        //     let reader = new FileReader();
+        //     let file = e.target.files[0];
+        //     reader.onloadend = () => {
+        //         setFile(file);
+        //         setImagePreview(reader.result);
+        //         setNameImage(e.target.files[0].name);
+        //         console.log("FILE", e.target.files[0]);
+        //     }
+        //     reader.readAsDataURL(file);
+        // }
+        
     }
+    const getBase64 = (file) => {
+        return new Promise((resolve,reject) => {
+           const reader = new FileReader();
+           reader.onload = () => resolve(reader.result);
+           reader.onerror = error => reject(error);
+           reader.readAsDataURL(file);
+        });
+      }
     const {
         register,
         handleSubmit,
@@ -67,22 +83,26 @@ const Form = () => {
         rating: "",
     };
     const onSubmit = (data, event) => {
-        const dataMovie = {
-            id: Date.now(),
-            title: data.title,
-            overview: data.overview,
-            poster: data.poster[0],
-            rating: ratingValue,
-            watched: false,
-            highlight: false,
-            favorite: false,
-        };
-        const newMovie = [...addMovie, dataMovie];
-        setAddMovie(newMovie);
-        event.target.reset(); // reset after form submit
-        setSelectedImage("");
-        setTimeout(() => navigate("/adicionados"), 1000);
-        console.log(newMovie);
+        if (data.poster[0] && ratingValue > 0) {
+            const dataMovie = {
+                id: Date.now(),
+                title: data.title,
+                overview: data.overview,
+                poster: data.poster[0],
+                rating: ratingValue,
+                watched: false,
+                highlight: false,
+                favorite: false,
+            };
+            console.log("IMAGEM", data.poster[0]);
+            const newMovie = [...addMovie, dataMovie];
+            setAddMovie(newMovie);
+            event.target.reset(); // reset after form submit
+            setFile("");
+            setTimeout(() => navigate("/adicionados"), 1000);
+        } else {
+            alert("Preencha todos os campos");
+        }
     };
 
     return (
@@ -134,10 +154,10 @@ const Form = () => {
             <div className="sub-container2">
                 <div className="item2">
                     <label>Imagem de capa</label>
-                    {selectedImage && (
+                    {file && (
                         <div style={styles.preview}>
                             <img
-                                src={selectedImage}
+                                src={imagePreview}
                                 style={styles.image}
                             />
                             <p>{nameImage}</p>
@@ -145,18 +165,17 @@ const Form = () => {
                     )}
                     <label className='selecionar-imagem' htmlFor='file'>Selecionar imagem</label>
                     <input
-                        {...register("poster")}
+                        {...register("poster", { required: true })}
                         type='file'
                         id='file'
                         accept=".png, .jpg, .jpeg"
-                    // onChange={onImageChange}
                     />
-                    {errors.poster && <span className='errorMsgDescricao'>{errors.poster.message}</span>}
+                    <span className='errorMsgDescricao'>{errors.poster?.message}</span>
                 </div>
             </div>
             <div className='box-buttons'>
                 <RedButton type='submit'>Confirmar</RedButton>
-                <CancelButton onClick={() => reset({ ...defaultValues }, setSelectedImage(), setRating())}>Cancelar</CancelButton>
+                <CancelButton onClick={() => reset({ ...defaultValues }, setFile(), setRating())}>Cancelar</CancelButton>
             </div>
         </form>
     );
