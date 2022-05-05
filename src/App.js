@@ -20,7 +20,6 @@ function App() {
       <BrowserRouter>
         <Nav />
         <div className='container'>
-          {console.log("APP.JS",dataAllMovies)}
           <Routes>
             <Route path="/" element={<Home />} />
             <Route path="todos" element={<Todos />} />

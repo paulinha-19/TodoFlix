@@ -4,3 +4,45 @@
   height: 100vh;
   overflow: auto;
 }
+
+.white {
+  fill: #ffffff;
+}
+
+.white::before {
+  content: " - ";
+}
+
+.orange {
+  fill: #ffa500;
+}
+
+.orange::before {
+  content: " 3/5 ";
+}
+
+.green80,
+.green100 {
+  fill: #008000;
+}
+
+.green80::before {
+  content: " 4/5 ";
+}
+
+.green100::before {
+  content: " 5/5 ";
+}
+
+.red20,
+.red40 {
+  fill: #ff0000;
+}
+
+.red20::before {
+  content: " 1/5 ";
+}
+
+.red40::before {
+  content: " 2/5 ";
+}

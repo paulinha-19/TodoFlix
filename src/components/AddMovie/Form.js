@@ -24,16 +24,6 @@ const styles = {
     image: { maxWidth: "260px", maxHeight: "148px" }
 };
 
-const schema = yup.object().shape({
-    title: yup.string().max(50, "Máximo de 50 caracteres").required("⚠ Nome do filme é obrigatório"),
-    overview: yup.string().max(200, "Máximo de 200 caracteres").required("⚠ Descrição do filme é obrigatório"),
-    status: yup.string().required("⚠ Status do filme é obrigatório").nullable(),
-    poster: yup.mixed().required()
-    // .test("fileSize", "Tamanho máximo da imagem de 10Mb", (value) => {
-    //     return value && value[0].size <= 10000
-    // })
-});
-
 const Form = () => {
     let navigate = useNavigate();
     const { addMovie, setAddMovie, rating, setRating } = useContext(MoviesContext);
@@ -97,25 +87,36 @@ const Form = () => {
         });
     }
 
-    const handleSubmit = (event) => {
+    const handleSubmit = async (event) => {
         event.preventDefault();
         if (ratingValue > 0 && file != null) {
             const formData = {
+                title: event.target[0].value,
+                overview: event.target[1].value,
                 id: Date.now(),
-                title: addMovieInfo.title,
-                overview: addMovieInfo.overview,
                 poster: file,
                 rating: ratingValue,
                 watched: false,
                 highlight: false,
                 favorite: false,
-            };
-            const newMovie = [...addMovie, formData];
-            setAddMovie(newMovie);
-            event.target.reset(); // reset after form submit
-            setFile("");
-            setTimeout(() => navigate("/adicionados"), 1000);
-        } else {
+            }
+            const isValid = await addMovieSchema.isValid(formData);
+            if (isValid === true) {
+                const newMovie = [...addMovie, formData];
+                event.target.reset(); // reset after form submit
+                setAddMovie(newMovie);
+                setFile(null);
+                setBase64URL("");
+                setNameImage("");
+                setAddMovieInfo({
+                    title: "",
+                    overview: "",
+                })
+                setRating(0);
+                setTimeout(() => navigate("/adicionados"), 1000);
+            }
+        }
+        else {
             alert("Preencha todos os campos");
         }
     };
@@ -127,7 +128,7 @@ const Form = () => {
                 <div className="item1">
                     <label style={{ display: 'flex' }} htmlFor="title">
                         Nome do filme
-                        <input required id="title" type="text" name="title" value={addMovieInfo.title} onChange={handleFieldChange} />
+                        <input id="title" type="text" name="title" value={addMovieInfo.title} onChange={handleFieldChange} />
                     </label>
 
                     <label style={{ display: 'flex' }} htmlFor="overview">
@@ -135,7 +136,7 @@ const Form = () => {
                             <span>Descrição</span>
                             <span>0/200</span>
                         </div>
-                        <textarea required id="overview" rows="5" cols="40" name="overview" value={addMovieInfo.overview} onChange={handleFieldChange} />
+                        <textarea id="overview" rows="5" cols="40" name="overview" value={addMovieInfo.overview} onChange={handleFieldChange} />
                     </label>
 
                     <label>Status</label>

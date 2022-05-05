@@ -6,7 +6,7 @@ import IconLike from '../assets/icon/icon-like.png';
 import '../assets/styles/Destaques.css';
 import '../assets/styles/DefaultCard.css';
 import { FaHeart } from 'react-icons/fa';
-
+import DefaultPoster from '../PosterDestaques';
 
 const Todos = () => {
   const { allMovies, isFavorite, handlerIcon } = useContext(MoviesContext);
@@ -45,7 +45,7 @@ const Todos = () => {
         })
       }
     </div>
-  )
+  );
 }
 
 export default Todos

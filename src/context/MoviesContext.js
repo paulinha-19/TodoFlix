@@ -1,5 +1,5 @@
 import React, { useState, createContext, useEffect } from 'react';
-import {useLocalStorage} from '../hooks/useLocalStorage';
+import { useLocalStorage } from '../hooks/useLocalStorage';
 
 //data
 import { dataAllMovies } from '../dataAllMovies';
@@ -13,7 +13,7 @@ const MoviesContextProvider = props => {
     const [favorites, setFavorites] = useState([]);
     const [rating, setRating] = useState(0);
     const [addMovie, setAddMovie] = useLocalStorage("addMovies", []);
-    
+
     //modal
     const [showStatus, setShowStatus] = useState(false);
     const handleShow = () => setShowStatus(true);
@@ -29,6 +29,22 @@ const MoviesContextProvider = props => {
             filterMovies: filterResult
         });
     }
+
+    //Punctuation/Note
+    const setVote = (note) => {
+        if (note === 0) { // 0 star
+            return "white";
+        } else if (note === 20) {  //1
+            return "red20";
+        } else if (note === 40) {  //2
+            return "red40";
+        } else if (note === 60) { //3 stars
+            return "orange";
+        } else if (note === 80) { //4 stars
+            return "green80"
+        } else return "green100";  //5 stars
+    };
+
 
     //favorites
     // useEffect(() => {
@@ -62,7 +78,7 @@ const MoviesContextProvider = props => {
     // }
 
     return (
-        <MoviesContext.Provider value={{ allMovies, destaques, filterMovies, filteredMovies, isFavorite, setIsFavorite, favorites, setFavorites, showStatus, handleClose, handleShow, rating, setRating, addMovie, setAddMovie }}>
+        <MoviesContext.Provider value={{ allMovies, destaques, filterMovies, filteredMovies, isFavorite, setIsFavorite, favorites, setFavorites, showStatus, handleClose, handleShow, rating, setRating, addMovie, setAddMovie, setVote }}>
             {props.children}
         </MoviesContext.Provider>
     );

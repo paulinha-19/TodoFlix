@@ -1,8 +1,6 @@
 import React, { useContext, useState } from 'react';
 import { MoviesContext } from '../../context/MoviesContext';
-import { Modal } from "react-bootstrap";
-import DefaultDetail from '../../DefaultDetail';
-import DefaultPoster from '../../DefaultPoster';
+import PosterDestaques from '../../PosterDestaques';
 
 //css
 import '../../assets/styles/Destaques.css';
@@ -53,9 +51,9 @@ const Destaques = () => {
   const sliders = () => {
     return filteredHighlight.map((data) => {
       return (
-        <>
-          <DefaultPoster {...data} key={data.id} />
-        </>
+        <div key={data.key}>
+          <PosterDestaques {...data} key={data.id} />
+        </div>
       );
     });
   }
