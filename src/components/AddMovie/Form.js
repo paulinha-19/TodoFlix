@@ -91,8 +91,8 @@ const Form = () => {
         event.preventDefault();
         if (ratingValue > 0 && file != null) {
             const formData = {
-                title: event.target[0].value,
-                overview: event.target[1].value,
+                title: event.target[0].value.trim(),
+                overview: event.target[1].value.trim(),
                 id: Date.now(),
                 poster: file,
                 rating: ratingValue,
@@ -128,7 +128,7 @@ const Form = () => {
                 <div className="item1">
                     <label style={{ display: 'flex' }} htmlFor="title">
                         Nome do filme
-                        <input id="title" type="text" name="title" value={addMovieInfo.title} onChange={handleFieldChange} />
+                        <input id="title" type="text" name="title" value={addMovieInfo.title} onChange={handleFieldChange} minLength='1' maxLength='' required/>
                     </label>
 
                     <label style={{ display: 'flex' }} htmlFor="overview">
@@ -136,7 +136,7 @@ const Form = () => {
                             <span>Descrição</span>
                             <span>0/200</span>
                         </div>
-                        <textarea id="overview" rows="5" cols="40" name="overview" value={addMovieInfo.overview} onChange={handleFieldChange} />
+                        <textarea id="overview" rows="5" cols="40" name="overview" value={addMovieInfo.overview} onChange={handleFieldChange} minLength='1' maxLength='200' required />
                     </label>
 
                     <label>Status</label>

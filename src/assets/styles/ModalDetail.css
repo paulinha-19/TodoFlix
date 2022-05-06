@@ -13,7 +13,7 @@ button.btn-close {
     background-color: #fff;
 }
 
-.modal-content .modal-header{
+.modal-content .modal-header {
     border-bottom: none;
 }
 
@@ -23,14 +23,51 @@ button.btn-close {
     vertical-align: middle;
 }
 
+.watched-icon-edit {
+    display: flex;
+}
+
+.button-watched {
+    display: flex;
+    align-items: center;
+}
+
+.heart-icon-modal,
+.button-edit {
+    display: flex;
+    align-items: center;
+    margin: 0.8rem 0 0 1rem;
+    cursor: pointer;
+}
+
+.heart-icon-modal {
+    border-radius: 50%;
+    transition: all 0.2s linear;
+    -webkit-transition: all .2s linear;
+}
+
+.heart-icon-modal:hover {
+    transform: scale(1.1);
+    transition-duration: 0.2s;
+}
+
+.button-edit i img {
+    width: 20px;
+}
+
 .movie_title {
     margin-top: 2rem;
-    font-weight: bold;
-    font-size: 1.7rem;
+    font-weight: 700;
+    font-size: 1rem;
+}
+
+.movie_title,
+.movie_overview {
+    word-break: break-word;
 }
 
 .movie_overview {
     font-family: 'IBM Plex Sans KR', sans-serif;
-    font-size: 1rem;
-    font-weight: bold;
+    font-size: 0.8rem;
+    padding-top: 0.5rem;
 }

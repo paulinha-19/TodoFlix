@@ -43,7 +43,6 @@ const DefaultPoster = ({ title, id, poster, overview, rating, dataMovie, setData
                         {overview}
                     </p>
                 </div>
-                <p>{watched.toString()}</p>
             </div>
             <Modal show={showStatus} onHide={handleClose} backdrop="static" className="Modal" >
                 <Modal.Header closeButton >
