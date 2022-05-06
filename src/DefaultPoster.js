@@ -7,7 +7,7 @@ import { FaHeart } from 'react-icons/fa';
 import { Modal } from 'react-bootstrap';
 import './assets/styles/DefaultPoster.css';
 
-const DefaultPoster = ({ title, id, poster, overview, rating }) => {
+const DefaultPoster = ({ title, id, poster, overview, rating, dataMovie, setDataMovie, data, watched }) => {
     const { isFavorite, setVote } = useContext(MoviesContext);
     const [showStatus, setShowStatus] = useState(false);
     const handleShow = () => setShowStatus(true);
@@ -43,13 +43,13 @@ const DefaultPoster = ({ title, id, poster, overview, rating }) => {
                         {overview}
                     </p>
                 </div>
-
+                <p>{watched.toString()}</p>
             </div>
             <Modal show={showStatus} onHide={handleClose} backdrop="static" className="Modal" >
                 <Modal.Header closeButton >
                 </Modal.Header>
                 <Modal.Body >
-                    <DefaultDetail id={id} poster={poster} overview={overview} title={title} />
+                    <DefaultDetail id={id} poster={poster} overview={overview} title={title} dataMovie={dataMovie} setDataMovie={setDataMovie} data={data} watched={watched}/>
                 </Modal.Body>
             </Modal>
         </div>

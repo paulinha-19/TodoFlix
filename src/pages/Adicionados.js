@@ -3,7 +3,7 @@ import { MoviesContext } from '../context/MoviesContext';
 import DefaultPoster from '../DefaultPoster';
 
 const Adicionados = () => {
-  const { addMovie} = useContext(MoviesContext);
+  const { addMovie, setAddMovie} = useContext(MoviesContext);
   return (
     <>
       <div>
@@ -13,7 +13,7 @@ const Adicionados = () => {
         addMovie.map((data) => {
           return (
             <div key={data.id}>
-              <DefaultPoster {...data} poster={data.poster.base64} key={data.id} />
+              <DefaultPoster {...data} poster={data.poster.base64} data={data} key={data.id} dataMovie={addMovie} setDataMovie={setAddMovie} />
             </div>
           );
         })

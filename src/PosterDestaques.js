@@ -11,7 +11,7 @@ import NoImg from './assets/img/noimg.png';
 import './assets/styles/SearchResults.css';
 import './assets/styles/Destaques.css';
 
-const DefaultPoster = ({ title, id, poster, overview }) => {
+const DefaultPoster = ({ title, id, poster, overview, watched}) => {
     const { favorites, setFavorites, getMovieStorage, getMovieDatail, isFavorite, setIsFavorite } = useContext(MoviesContext);
     const [showStatus, setShowStatus] = useState(false);
     const handleShow = () => setShowStatus(true);
@@ -53,7 +53,7 @@ const DefaultPoster = ({ title, id, poster, overview }) => {
                 <Modal.Header closeButton >
                 </Modal.Header>
                 <Modal.Body >
-                    <DefaultDetail id={id} poster={poster} overview={overview} title={title} />
+                    <DefaultDetail id={id} poster={poster} overview={overview} title={title} watched={watched} />
                 </Modal.Body>
             </Modal>
         </div>
