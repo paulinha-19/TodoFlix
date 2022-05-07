@@ -1,24 +1,19 @@
 import React, { useContext } from 'react';
 import { MoviesContext } from '../context/MoviesContext';
-import DefaultPoster from '../DefaultPoster';
+import Card from '../Card';
+import '../assets/styles/DefaultPoster.css';
 
 const Adicionados = () => {
-  const { addMovie, setAddMovie} = useContext(MoviesContext);
+  const { addMovie, setAddMovie } = useContext(MoviesContext);
   return (
-    <>
-      <div>
-        <h3>Adicionados</h3>
+    <div>
+      <h3>Adicionados</h3>
+      <div className="container-cards">
+        {addMovie.map((data) => (
+          <Card {...data} poster={data.poster.base64} key={data.id} />
+        ))}
       </div>
-      {
-        addMovie.map((data) => {
-          return (
-            <div key={data.id}>
-              <DefaultPoster {...data} poster={data.poster.base64} data={data} key={data.id} dataMovie={addMovie} setDataMovie={setAddMovie} />
-            </div>
-          );
-        })
-      }
-    </>
+    </div>
   );
 }
 

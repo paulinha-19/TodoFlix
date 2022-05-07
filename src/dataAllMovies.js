@@ -9,7 +9,7 @@ export const dataAllMovies = {
             poster: require('./assets/img/capitao-fantastico.png'),
             watched: true,
             highlight: false,
-            rating: []
+            rating: 80
         },
         {
             id: 2,
@@ -18,7 +18,7 @@ export const dataAllMovies = {
             poster: require('./assets/img/shrek.png'),
             watched: false,
             highlight: true,
-            rating: []
+            rating: 80
         },
         {
             id: 3,
@@ -27,7 +27,7 @@ export const dataAllMovies = {
             poster: require('./assets/img/hoje-eu-quero-voltar-sozinho.png'),
             watched: false,
             highlight: true,
-            rating: []
+            rating: 0
         },
         {
             id: 4,
@@ -36,7 +36,7 @@ export const dataAllMovies = {
             poster: require('./assets/img/um-sonho-de-liberdade.png'),
             watched: false,
             highlight: true,
-            rating: []
+            rating: 80
         },
         {
             id: 5,
@@ -45,7 +45,7 @@ export const dataAllMovies = {
             poster: require('./assets/img/spider-man.png'),
             watched: false,
             highlight: true,
-            rating: []
+            rating: 60
         },
         {
             id: 6,
@@ -54,7 +54,7 @@ export const dataAllMovies = {
             poster: require('./assets/img/que-horas-ela-volta.png'),
             watched: false,
             highlight: true,
-            rating: []
+            rating: 0
         },
         {
             id: 7,
@@ -63,7 +63,7 @@ export const dataAllMovies = {
             poster: require('./assets/img/a-fuga-das-galinhas.jpg'),
             watched: false,
             highlight: false,
-            rating: []
+            rating: 40
         },
         {
             id: 8,
@@ -72,7 +72,7 @@ export const dataAllMovies = {
             poster: require('./assets/img/amarelo.jpg'),
             watched: false,
             highlight: false,
-            rating: []
+            rating: 100
         },
         {
             id: 9,
@@ -81,7 +81,7 @@ export const dataAllMovies = {
             poster: require('./assets/img/rocketman.jpeg'),
             watched: false,
             highlight: false,
-            rating: []
+            rating: 0
         },
     ]
 };

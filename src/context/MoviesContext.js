@@ -30,19 +30,25 @@ const MoviesContextProvider = props => {
         });
     }
 
+    //rating
+    const handleRating = (rate) => {
+        setRating(rate);
+        return rate;
+    }
+
     //Punctuation/Note
     const setVote = (note) => {
         if (note === 0) { // 0 star
-            return "white";
+            return "rating-like-white";
         } else if (note === 20) {  //1
-            return "red20";
+            return "rating-like-red20";
         } else if (note === 40) {  //2
-            return "red40";
+            return "rating-like-red40";
         } else if (note === 60) { //3 stars
-            return "orange";
+            return "rating-like-orange";
         } else if (note === 80) { //4 stars
-            return "green80"
-        } else return "green100";  //5 stars
+            return "rating-like-green80"
+        } else return "rating-like-green100";  //5 stars
     };
 
 
@@ -78,7 +84,7 @@ const MoviesContextProvider = props => {
     // }
 
     return (
-        <MoviesContext.Provider value={{ allMovies, destaques, filterMovies, filteredMovies, isFavorite, setIsFavorite, favorites, setFavorites, showStatus, handleClose, handleShow, rating, setRating, addMovie, setAddMovie, setVote }}>
+        <MoviesContext.Provider value={{ allMovies, destaques, filterMovies, filteredMovies, isFavorite, setIsFavorite, favorites, setFavorites, showStatus, handleClose, handleShow, rating, setRating, addMovie, setAddMovie, setVote, handleRating }}>
             {props.children}
         </MoviesContext.Provider>
     );

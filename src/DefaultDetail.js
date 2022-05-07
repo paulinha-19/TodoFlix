@@ -1,7 +1,9 @@
-import React from 'react';
+import React, {useContext} from 'react';
 import { FaHeart } from 'react-icons/fa';
 import NoImg from './assets/img/noimg.png';
-import IconEdit from './assets/icon/edit.png'
+import IconEdit from './assets/icon/edit.png';
+import { Rating } from 'react-simple-star-rating';
+import { MoviesContext } from './context/MoviesContext';
 //css
 import './assets/styles/ModalDetail.css';
 import styled from 'styled-components';
@@ -15,7 +17,8 @@ height: '25px';
 font-weight: '600';
 `
 
-const DefaultDetail = ({ id, poster, overview, title, watched, dataMovie, setDataMovie, data }) => {
+const DefaultDetail = ({ id, poster, overview, title, watched, dataMovie, setDataMovie, data, rating }) => {
+  const {handleRating} = useContext(MoviesContext);
   const handleWatchedClick = (data) => {
     setDataMovie(
       dataMovie.map((item) =>
@@ -39,7 +42,7 @@ const DefaultDetail = ({ id, poster, overview, title, watched, dataMovie, setDat
         </div>
         <div className='button-edit' title='Editar filme'>
           <i>
-            <img src={IconEdit} alt='icon edit'/>
+            <img src={IconEdit} alt='icon edit' />
           </i>
         </div>
       </section>
@@ -50,6 +53,19 @@ const DefaultDetail = ({ id, poster, overview, title, watched, dataMovie, setDat
         <div className="movie_overview">
           {overview}
         </div>
+      </section>
+      <section>
+        <Rating
+          name="rating"
+          id='rating'
+          onClick={handleRating}
+          ratingValue={rating}
+          showTooltip
+          tooltipArray={['1/5', '2/5', '3/5', '4/5', '5/5']}
+          // value={addMovieInfo.rating}
+          // onChange={handleFieldChange}
+        >
+        </Rating>
       </section>
     </div>
   );

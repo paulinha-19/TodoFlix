@@ -7,8 +7,6 @@ import JaVistos from './pages/JaVistos';
 import Adicionados from './pages/Adicionados';
 import Nav from './components/Nav/Nav';
 import SearchResults from './components/SearchResults/SearchResults';
-import { dataAllMovies } from './dataAllMovies';
-import Form from './components/AddMovie/Form';
 import {
   BrowserRouter,
   Routes,
