@@ -1,13 +1,17 @@
 import React, { useContext } from 'react';
 import { MoviesContext } from './context/MoviesContext';
 import { FaHeart } from 'react-icons/fa';
+import NoImg from './assets/img/noimg.png';
 
 export default function Card({ poster, title, overview, rating }) {
     const { isFavorite, setVote } = useContext(MoviesContext);
     return (
         <div className="card">
             <div className="img-card">
-                <img src={poster} alt={title} />
+                {
+                    poster ? <img src={poster} alt={title} />
+                        : <img src={NoImg} alt="Break image" />
+                }
                 <i>
                     {isFavorite ?
                         <FaHeart className='heart-icon' style={{ color: 'red' }} /> : <FaHeart className='heart-icon' style={{ color: '#BABABA' }} />

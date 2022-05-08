@@ -53,3 +53,8 @@ span.before-icon-like {
   align-items: center;
   font-weight: 500;
 }
+
+.search-word{
+  display: flex;
+  justify-content: center;
+}

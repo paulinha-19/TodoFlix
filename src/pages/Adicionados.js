@@ -1,7 +1,7 @@
 import React, { useContext } from 'react';
 import { MoviesContext } from '../context/MoviesContext';
 import Card from '../Card';
-import '../assets/styles/DefaultPoster.css';
+import '../assets/styles/Card.css';
 
 const Adicionados = () => {
   const { addMovie, setAddMovie } = useContext(MoviesContext);

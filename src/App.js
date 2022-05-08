@@ -6,7 +6,7 @@ import Favoritos from './pages/Favoritos';
 import JaVistos from './pages/JaVistos';
 import Adicionados from './pages/Adicionados';
 import Nav from './components/Nav/Nav';
-import SearchResults from './components/SearchResults/SearchResults';
+import SearchResult from './components/SearchResults/SearchResult';
 import {
   BrowserRouter,
   Routes,
@@ -21,7 +21,7 @@ function App() {
           <Routes>
             <Route path="/" element={<Home />} />
             <Route path="todos" element={<Todos />} />
-            <Route path="/search-results" element={<SearchResults />} />
+            <Route path="/search-results" element={<SearchResult />} />
             <Route path="favoritos" element={<Favoritos />} />
             <Route path="javistos" element={<JaVistos />} />
             <Route path="adicionados" element={<Adicionados />} />
