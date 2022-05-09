@@ -1,16 +1,21 @@
-import React, { useContext } from 'react';
+import React, { useContext, useState } from 'react';
 import { MoviesContext } from './context/MoviesContext';
+import DefaultDetail from './DefaultDetail';
+import { Modal } from 'react-bootstrap';
 import { FaHeart } from 'react-icons/fa';
 import NoImg from './assets/img/noimg.png';
 
-export default function Card({ poster, title, overview, rating }) {
+export default function Card({ poster, title, overview, rating, watched, id }) {
     const { isFavorite, setVote } = useContext(MoviesContext);
+    const [showStatus, setShowStatus] = useState(false);
+    const handleShow = () => setShowStatus(true);
+    const handleClose = () => setShowStatus(false);
     return (
         <div className="card">
             <div className="img-card">
                 {
-                    poster ? <img src={poster} alt={title} />
-                        : <img src={NoImg} alt="Break image" />
+                    poster ? <img src={poster} alt={title} onClick={handleShow} />
+                        : <img src={NoImg} alt="Break image" onClick={handleShow} />
                 }
                 <i>
                     {isFavorite ?
@@ -37,6 +42,13 @@ export default function Card({ poster, title, overview, rating }) {
                     {overview}
                 </p>
             </div>
+            <Modal show={showStatus} onHide={handleClose} backdrop="static" className="Modal" >
+                <Modal.Header closeButton >
+                </Modal.Header>
+                <Modal.Body >
+                    <DefaultDetail id={id} poster={poster} overview={overview} title={title} watched={watched} rating={rating} />
+                </Modal.Body>
+            </Modal>
         </div>
     );
 }

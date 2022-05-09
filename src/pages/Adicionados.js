@@ -4,7 +4,7 @@ import Card from '../Card';
 import '../assets/styles/Card.css';
 
 const Adicionados = () => {
-  const { addMovie, setAddMovie } = useContext(MoviesContext);
+  const { addMovie } = useContext(MoviesContext);
   return (
     <div>
       <h3>Adicionados</h3>

@@ -24,7 +24,7 @@ const DefaultPoster = ({ title, id, poster, overview, watched, rating }) => {
                     {poster ?
                         <img alt={title} src={poster} onClick={handleShow} />
                         :
-                        <img src={NoImg} alt={title} />
+                        <img src={NoImg} alt={title} onClick={handleShow} />
                     }
                     <i>
                         {isFavorite ?
