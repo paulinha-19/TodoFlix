@@ -33,3 +33,13 @@ O desafio teve como objetivo implementar as funcionalidades abaixo de acordo com
 
 #### Funcionalidade extra:
 :white_check_mark: Dependendo do número de estrelas dadas ao filme, a cor do botão de like muda de acordo com a pontuação exemplificada no XD.
+
+### Trabalho futuro
+Finalizar as funcionalidades de todos os níveis e adicionar novas funcionalidades/tecnologias como: 
+
+- Login/Logout
+- NodeJs
+- Banner rotativo no visto recentemente
+
+
+
